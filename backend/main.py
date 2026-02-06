@@ -9,11 +9,15 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="HRMS Lite API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],         
-    allow_credentials=True,      
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=False, # Set to False when using wildcard origins to avoid browser blocking
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def read_root():
+    return {"message": "HRMS Backend is running!"}
 
 def get_db():
     db = SessionLocal()
@@ -25,9 +29,8 @@ def get_db():
 # --- Auth ---
 @app.post("/login", response_model=schemas.Token)
 def login(creds: schemas.LoginRequest):
-    if creds.username == "admin" and creds.password == "admin":
-        # In a real app, generate a JWT token here.
-        # For this assignment, we return a mock token.
+    # Case-insensitive username check
+    if creds.username.lower() == "admin" and creds.password == "admin":
         return {"access_token": "admin-mock-token", "token_type": "bearer"}
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
