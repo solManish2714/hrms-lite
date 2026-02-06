@@ -9,10 +9,7 @@ import Attendance from "./pages/Attendance";
 import "./index.css";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  // Login requirement removed
   return children;
 };
 

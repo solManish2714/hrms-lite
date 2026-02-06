@@ -4,15 +4,13 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  // Auto-login default user to bypass login screen
+  const [user, setUser] = useState({ username: "admin" });
+  const [token, setToken] = useState("mock-token");
 
   useEffect(() => {
-    if (token) {
-      // Validate token if needed, or just assume logged in for now
-      setUser({ username: "admin" });
-    }
-  }, [token]);
+    // No validation needed for this mode
+  }, []);
 
   const login = async (username, password) => {
     try {
