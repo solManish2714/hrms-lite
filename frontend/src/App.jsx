@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
+
 import AddEmployee from "./pages/AddEmployee";
 import EmployeeList from "./pages/EmployeeList";
 import ManageEmployee from "./pages/ManageEmployee";
@@ -19,7 +19,6 @@ function AppRoutes() {
       <Navbar />
       <div className="main-content">
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Navigate to="/view-employees" replace />} />
 
           <Route path="/add-employee" element={
